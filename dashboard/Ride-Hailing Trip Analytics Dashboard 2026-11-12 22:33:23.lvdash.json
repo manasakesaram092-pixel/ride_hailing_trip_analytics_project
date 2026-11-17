@@ -1,0 +1,1759 @@
+{
+  "datasets": [
+    {
+      "name": "00a6df2a",
+      "displayName": "bronze_trips",
+      "config": {
+        "version": "1.1",
+        "source": "ride_hailing_trip_analytics_project.default.bronze_trips"
+      }
+    },
+    {
+      "name": "abd36adb",
+      "displayName": "gold_city_summary",
+      "config": {
+        "source": "ride_hailing_trip_analytics_project.default.gold_city_summary",
+        "measures": [
+          {
+            "name": "trips",
+            "expr": "SUM(trips)",
+            "displayName": "Total Trips"
+          },
+          {
+            "name": "net_revenue",
+            "expr": "SUM(net_revenue)",
+            "displayName": "Net Revenue",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "abbreviation": "compact"
+            }
+          },
+          {
+            "name": "avg_fare_per_trip",
+            "expr": "SUM(net_revenue) / SUM(trips)",
+            "displayName": "Avg Fare per Trip",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 2.0
+              }
+            }
+          }
+        ],
+        "version": "1.1",
+        "comment": "City-level ride-hailing aggregates from the Gold layer",
+        "dimensions": [
+          {
+            "name": "region",
+            "expr": "region"
+          },
+          {
+            "name": "city",
+            "expr": "city"
+          }
+        ]
+      }
+    },
+    {
+      "name": "c30335f5",
+      "displayName": "gold_data_qualitys",
+      "config": {
+        "source": "ride_hailing_trip_analytics_project.default.gold_data_qualitys",
+        "measures": [
+          {
+            "name": "bronze_rows",
+            "expr": "SUM(bronze_rows)",
+            "displayName": "Total Bronze Records"
+          },
+          {
+            "name": "duplicate_rows",
+            "expr": "SUM(duplicate_rows)",
+            "displayName": "Duplicate Records"
+          },
+          {
+            "name": "invalid_distance_rows",
+            "expr": "SUM(invalid_distance_rows)",
+            "displayName": "Invalid Distance Records"
+          },
+          {
+            "name": "invalid_rate_rows",
+            "expr": "SUM(invalid_rate_rows)",
+            "displayName": "Invalid Rate Records"
+          },
+          {
+            "name": "missing_city_rows",
+            "expr": "SUM(missing_city_rows)",
+            "displayName": "Missing City Records"
+          },
+          {
+            "name": "missing_payment_rows",
+            "expr": "SUM(missing_payment_rows)",
+            "displayName": "Missing Payment Records"
+          },
+          {
+            "name": "missing_fare_rows",
+            "expr": "SUM(missing_fare_rows)",
+            "displayName": "Missing Fare Records"
+          },
+          {
+            "name": "missing_rating_rows",
+            "expr": "SUM(missing_rating_rows)",
+            "displayName": "Missing Rating Records"
+          },
+          {
+            "name": "clean_rows",
+            "expr": "SUM(clean_rows)",
+            "displayName": "Total Clean Records"
+          },
+          {
+            "name": "rejected_rows",
+            "expr": "SUM(rejected_rows)",
+            "displayName": "Total Rejected Records"
+          },
+          {
+            "name": "reconciliation_difference",
+            "expr": "SUM(reconciliation_difference)",
+            "displayName": "Reconciliation Difference"
+          }
+        ],
+        "version": "1.1",
+        "comment": "Data quality and reconciliation metrics for the ride-hailing pipeline",
+        "dimensions": [
+          {
+            "name": "reconciliation_status",
+            "expr": "reconciliation_status",
+            "comment": "Overall pipeline reconciliation outcome"
+          }
+        ]
+      }
+    },
+    {
+      "name": "5cac810e",
+      "displayName": "gold_monthly_trips",
+      "config": {
+        "source": "ride_hailing_trip_analytics_project.default.gold_monthly_trips",
+        "measures": [
+          {
+            "name": "trips",
+            "expr": "SUM(trips)",
+            "displayName": "Total Trips"
+          },
+          {
+            "name": "total_km",
+            "expr": "SUM(total_km)",
+            "displayName": "Total Distance (KM)",
+            "format": {
+              "type": "number",
+              "abbreviation": "compact"
+            }
+          },
+          {
+            "name": "net_revenue",
+            "expr": "SUM(net_revenue)",
+            "displayName": "Net Revenue",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "abbreviation": "compact"
+            }
+          },
+          {
+            "name": "driver_payout",
+            "expr": "SUM(driver_payout)",
+            "displayName": "Driver Payout",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "abbreviation": "compact"
+            }
+          },
+          {
+            "name": "platform_earnings",
+            "expr": "SUM(platform_earnings)",
+            "displayName": "Platform Earnings",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "abbreviation": "compact"
+            }
+          }
+        ],
+        "version": "1.1",
+        "comment": "Monthly ride-hailing trip aggregates from the Gold layer",
+        "dimensions": [
+          {
+            "name": "trip_month",
+            "expr": "DATE_TRUNC('MONTH', trip_month)",
+            "comment": "Calendar month of the trips",
+            "format": {
+              "type": "date",
+              "dateFormat": "locale_short_month"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "d87736bd",
+      "displayName": "gold_payment_summary",
+      "config": {
+        "source": "ride_hailing_trip_analytics_project.default.gold_payment_summary",
+        "measures": [
+          {
+            "name": "trips",
+            "expr": "SUM(trips)",
+            "displayName": "Total Trips"
+          },
+          {
+            "name": "net_revenue",
+            "expr": "SUM(net_revenue)",
+            "displayName": "Net Revenue",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "abbreviation": "compact"
+            }
+          },
+          {
+            "name": "pending_amount",
+            "expr": "SUM(pending_amount)",
+            "displayName": "Total Pending Amount",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "abbreviation": "compact"
+            }
+          }
+        ],
+        "version": "1.1",
+        "comment": "Payment-method-level ride-hailing aggregates from the Gold layer",
+        "dimensions": [
+          {
+            "name": "payment_method",
+            "expr": "payment_method"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ccea500f",
+      "displayName": "gold_vehicle_summary",
+      "config": {
+        "source": "ride_hailing_trip_analytics_project.default.gold_vehicle_summary",
+        "measures": [
+          {
+            "name": "trips",
+            "expr": "SUM(trips)",
+            "displayName": "Total Trips"
+          },
+          {
+            "name": "total_km",
+            "expr": "SUM(total_km)",
+            "displayName": "Total Distance (KM)",
+            "format": {
+              "type": "number",
+              "abbreviation": "compact"
+            }
+          },
+          {
+            "name": "net_revenue",
+            "expr": "SUM(net_revenue)",
+            "displayName": "Net Revenue",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "abbreviation": "compact"
+            }
+          },
+          {
+            "name": "avg_rating",
+            "expr": "AVG(avg_rating)",
+            "displayName": "Average Customer Rating",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          }
+        ],
+        "version": "1.1",
+        "comment": "Vehicle-type-level ride-hailing aggregates from the Gold layer",
+        "dimensions": [
+          {
+            "name": "vehicle_type",
+            "expr": "vehicle_type"
+          }
+        ]
+      }
+    },
+    {
+      "name": "38cec1ce",
+      "displayName": "silver_trip",
+      "config": {
+        "version": "1.1",
+        "source": "ride_hailing_trip_analytics_project.default.silver_trip"
+      }
+    },
+    {
+      "name": "efe69b61",
+      "displayName": "silver_trip_rejected",
+      "config": {
+        "version": "1.1",
+        "source": "ride_hailing_trip_analytics_project.default.silver_trip_rejected",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "dq_issues",
+      "displayName": "gold_data_quality_breakdown",
+      "config": {
+        "source": "SELECT breakdown, category, record_count\nFROM (\n  SELECT stack(\n    10,\n    'Data Quality Issue', 'Duplicates', duplicate_rows,\n    'Data Quality Issue', 'Invalid Distance', invalid_distance_rows,\n    'Data Quality Issue', 'Invalid Rate', invalid_rate_rows,\n    'Data Quality Issue', 'Missing City', missing_city_rows,\n    'Data Quality Issue', 'Missing Payment', missing_payment_rows,\n    'Data Quality Issue', 'Missing Fare', missing_fare_rows,\n    'Data Quality Issue', 'Missing Rating', missing_rating_rows,\n    'Record Count', 'Bronze Records', bronze_rows,\n    'Record Count', 'Clean Records', clean_rows,\n    'Record Count', 'Rejected Records', rejected_rows\n  ) AS (breakdown, category, record_count)\n  FROM ride_hailing_trip_analytics_project.default.gold_data_qualitys\n)\n",
+        "measures": [
+          {
+            "name": "record_count",
+            "expr": "SUM(record_count)",
+            "displayName": "Records"
+          }
+        ],
+        "version": "1.1",
+        "comment": "Data quality issue categories and record volume breakdowns unpivoted from gold_data_quality for charting",
+        "dimensions": [
+          {
+            "name": "breakdown",
+            "expr": "breakdown"
+          },
+          {
+            "name": "category",
+            "expr": "category"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "c824244e",
+      "displayName": "Business Overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "filter_month",
+            "queries": [
+              {
+                "name": "dashboards/01f1debad377195eb224b4f2340c1c76/datasets/01f1debae8341125a7516bf46f19f04f_trip_month",
+                "query": {
+                  "datasetName": "5cac810e",
+                  "fields": [
+                    {
+                      "name": "trip_month",
+                      "expression": "`trip_month`"
+                    },
+                    {
+                      "name": "trip_month_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Month"
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "trip_month",
+                    "queryName": "dashboards/01f1debad377195eb224b4f2340c1c76/datasets/01f1debae8341125a7516bf46f19f04f_trip_month"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_city",
+            "queries": [
+              {
+                "name": "dashboards/01f1debad377195eb224b4f2340c1c76/datasets/01f1debae7b0174bbd79288a6b19dc1f_city",
+                "query": {
+                  "datasetName": "abd36adb",
+                  "fields": [
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    },
+                    {
+                      "name": "city_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "City"
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "city",
+                    "queryName": "dashboards/01f1debad377195eb224b4f2340c1c76/datasets/01f1debae7b0174bbd79288a6b19dc1f_city"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_region",
+            "queries": [
+              {
+                "name": "dashboards/01f1debad377195eb224b4f2340c1c76/datasets/01f1debae7b0174bbd79288a6b19dc1f_region",
+                "query": {
+                  "datasetName": "abd36adb",
+                  "fields": [
+                    {
+                      "name": "region",
+                      "expression": "`region`"
+                    },
+                    {
+                      "name": "region_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Region"
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "region",
+                    "queryName": "dashboards/01f1debad377195eb224b4f2340c1c76/datasets/01f1debae7b0174bbd79288a6b19dc1f_region"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_total_trips",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5cac810e",
+                  "fields": [
+                    {
+                      "name": "measure(trips)",
+                      "expression": "MEASURE(`trips`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Trips"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(trips)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_net_revenue",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5cac810e",
+                  "fields": [
+                    {
+                      "name": "measure(net_revenue)",
+                      "expression": "MEASURE(`net_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Net Revenue"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(net_revenue)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 2,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_total_km",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5cac810e",
+                  "fields": [
+                    {
+                      "name": "measure(total_km)",
+                      "expression": "MEASURE(`total_km`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Distance (KM)"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(total_km)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_driver_payout",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5cac810e",
+                  "fields": [
+                    {
+                      "name": "measure(driver_payout)",
+                      "expression": "MEASURE(`driver_payout`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Driver Payout"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(driver_payout)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_platform_earnings",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5cac810e",
+                  "fields": [
+                    {
+                      "name": "measure(platform_earnings)",
+                      "expression": "MEASURE(`platform_earnings`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Platform Earnings"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(platform_earnings)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_revenue_trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5cac810e",
+                  "fields": [
+                    {
+                      "name": "trip_month",
+                      "expression": "`trip_month`"
+                    },
+                    {
+                      "name": "measure(net_revenue)",
+                      "expression": "MEASURE(`net_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Monthly Revenue Trend"
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "trip_month",
+                  "displayName": "trip_month",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(net_revenue)",
+                  "displayName": "net_revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_trip_volume",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5cac810e",
+                  "fields": [
+                    {
+                      "name": "trip_month",
+                      "expression": "`trip_month`"
+                    },
+                    {
+                      "name": "measure(trips)",
+                      "expression": "MEASURE(`trips`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Monthly Trip Volume"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "trip_month",
+                  "displayName": "trip_month",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(trips)",
+                  "displayName": "trips",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 5,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_revenue_city",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "abd36adb",
+                  "fields": [
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    },
+                    {
+                      "name": "measure(net_revenue)",
+                      "expression": "MEASURE(`net_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Revenue by City"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "city",
+                  "displayName": "city",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(net_revenue)",
+                  "displayName": "net_revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "city",
+                  "displayName": "city",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 10,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_platform_earnings",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5cac810e",
+                  "fields": [
+                    {
+                      "name": "trip_month",
+                      "expression": "`trip_month`"
+                    },
+                    {
+                      "name": "measure(platform_earnings)",
+                      "expression": "MEASURE(`platform_earnings`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Platform Earnings by Month"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "trip_month",
+                  "displayName": "trip_month",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(platform_earnings)",
+                  "displayName": "platform_earnings",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 10,
+            "width": 6,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "vehicle_payment",
+      "displayName": "Vehicle & Payment Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "filter_vehicle_type",
+            "queries": [
+              {
+                "name": "dashboards/01f1debad377195eb224b4f2340c1c76/datasets/01f1debae8c51f0e8c6453918ca9cc2d_vehicle_type",
+                "query": {
+                  "datasetName": "ccea500f",
+                  "fields": [
+                    {
+                      "name": "vehicle_type",
+                      "expression": "`vehicle_type`"
+                    },
+                    {
+                      "name": "vehicle_type_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Vehicle Type"
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "vehicle_type",
+                    "queryName": "dashboards/01f1debad377195eb224b4f2340c1c76/datasets/01f1debae8c51f0e8c6453918ca9cc2d_vehicle_type"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_pending_amount",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d87736bd",
+                  "fields": [
+                    {
+                      "name": "measure(pending_amount)",
+                      "expression": "MEASURE(`pending_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Pending Payment Amount"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(pending_amount)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_trips_vehicle",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ccea500f",
+                  "fields": [
+                    {
+                      "name": "vehicle_type",
+                      "expression": "`vehicle_type`"
+                    },
+                    {
+                      "name": "measure(trips)",
+                      "expression": "MEASURE(`trips`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Trips by Vehicle Type"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "vehicle_type",
+                  "displayName": "vehicle_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(trips)",
+                  "displayName": "trips",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "vehicle_type",
+                  "displayName": "vehicle_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_revenue_vehicle",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ccea500f",
+                  "fields": [
+                    {
+                      "name": "vehicle_type",
+                      "expression": "`vehicle_type`"
+                    },
+                    {
+                      "name": "measure(net_revenue)",
+                      "expression": "MEASURE(`net_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Revenue by Vehicle Type"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "vehicle_type",
+                  "displayName": "vehicle_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(net_revenue)",
+                  "displayName": "net_revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "vehicle_type",
+                  "displayName": "vehicle_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_rating_vehicle",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ccea500f",
+                  "fields": [
+                    {
+                      "name": "vehicle_type",
+                      "expression": "`vehicle_type`"
+                    },
+                    {
+                      "name": "measure(avg_rating)",
+                      "expression": "MEASURE(`avg_rating`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Avg Customer Rating by Vehicle Type"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "vehicle_type",
+                  "displayName": "vehicle_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(avg_rating)",
+                  "displayName": "avg_rating",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "vehicle_type",
+                  "displayName": "vehicle_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 2,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_payment_pie",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d87736bd",
+                  "fields": [
+                    {
+                      "name": "measure(trips)",
+                      "expression": "MEASURE(`trips`)"
+                    },
+                    {
+                      "name": "payment_method",
+                      "expression": "`payment_method`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Trips Distribution by Payment Method"
+              },
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "measure(trips)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "trips"
+                },
+                "color": {
+                  "fieldName": "payment_method",
+                  "displayName": "payment_method",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_revenue_payment",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "d87736bd",
+                  "fields": [
+                    {
+                      "name": "payment_method",
+                      "expression": "`payment_method`"
+                    },
+                    {
+                      "name": "measure(net_revenue)",
+                      "expression": "MEASURE(`net_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Revenue by Payment Method"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "payment_method",
+                  "displayName": "payment_method",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(net_revenue)",
+                  "displayName": "net_revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "payment_method",
+                  "displayName": "payment_method",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 7,
+            "width": 6,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "data_quality",
+      "displayName": "Data Quality & Reconciliation",
+      "layout": [
+        {
+          "widget": {
+            "name": "chart_dq_issues",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dq_issues",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "measure(record_count)",
+                      "expression": "MEASURE(`record_count`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "breakdown IN ('Data Quality Issue')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Data Quality Issues"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(record_count)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "chart_reconciliation_compare",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dq_issues",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "measure(record_count)",
+                      "expression": "MEASURE(`record_count`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "breakdown IN ('Record Count')"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Bronze vs Clean vs Rejected Records"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(record_count)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_bronze_rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "c30335f5",
+                  "fields": [
+                    {
+                      "name": "measure(bronze_rows)",
+                      "expression": "MEASURE(`bronze_rows`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Bronze Records"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(bronze_rows)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_clean_rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "c30335f5",
+                  "fields": [
+                    {
+                      "name": "measure(clean_rows)",
+                      "expression": "MEASURE(`clean_rows`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Clean Records"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(clean_rows)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_rejected_rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "c30335f5",
+                  "fields": [
+                    {
+                      "name": "measure(rejected_rows)",
+                      "expression": "MEASURE(`rejected_rows`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Rejected Records"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(rejected_rows)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_duplicate_rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "c30335f5",
+                  "fields": [
+                    {
+                      "name": "measure(duplicate_rows)",
+                      "expression": "MEASURE(`duplicate_rows`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Duplicate Records"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(duplicate_rows)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "table_reconciliation",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "c30335f5",
+                  "fields": [
+                    {
+                      "name": "measure(bronze_rows)",
+                      "expression": "MEASURE(`bronze_rows`)"
+                    },
+                    {
+                      "name": "measure(clean_rows)",
+                      "expression": "MEASURE(`clean_rows`)"
+                    },
+                    {
+                      "name": "measure(rejected_rows)",
+                      "expression": "MEASURE(`rejected_rows`)"
+                    },
+                    {
+                      "name": "measure(duplicate_rows)",
+                      "expression": "MEASURE(`duplicate_rows`)"
+                    },
+                    {
+                      "name": "measure(reconciliation_difference)",
+                      "expression": "MEASURE(`reconciliation_difference`)"
+                    },
+                    {
+                      "name": "reconciliation_status",
+                      "expression": "`reconciliation_status`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Reconciliation Status"
+              },
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "measure(bronze_rows)"
+                  },
+                  {
+                    "fieldName": "measure(clean_rows)"
+                  },
+                  {
+                    "fieldName": "measure(rejected_rows)"
+                  },
+                  {
+                    "fieldName": "measure(duplicate_rows)"
+                  },
+                  {
+                    "fieldName": "measure(reconciliation_difference)"
+                  },
+                  {
+                    "fieldName": "reconciliation_status"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 12,
+            "height": 4
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "selectionColor": {
+        "light": "#2272B4",
+        "dark": "#4A9ADE"
+      },
+      "visualizationColors": [
+        "#15AFDD",
+        "#2375A8",
+        "#52A870",
+        "#C85070",
+        "#C89930"
+      ],
+      "widgetHeaderAlignment": "LEFT",
+      "fontSettings": {
+        "base": {
+          "fontFamily": "Inter"
+        }
+      }
+    },
+    "applyModeEnabled": false
+  }
+}
